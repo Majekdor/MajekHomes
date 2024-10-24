@@ -85,7 +85,7 @@ public class CommandHome implements TabExecutor {
                     bossBar = homesPlayer.getBossBar();
                 if (SimpleHomes.core().getConfig().getBoolean("use-boss-bar")) {
                     homesPlayer.setBossBar(bossBar);
-                    bossBar.createBar(MiniMessage.get().parse(SimpleHomes.core().getLang().getString("teleportBar", "null")));
+                    bossBar.createBar(MiniMessage.miniMessage().deserialize(SimpleHomes.core().getLang().getString("teleportBar", "null")));
                     bossBar.showBar(player, tpDelay);
                 }
 
@@ -153,7 +153,7 @@ public class CommandHome implements TabExecutor {
                     bossBar = target.getBossBar();
                 if (SimpleHomes.core().getConfig().getBoolean("use-boss-bar")) {
                     homesPlayer.setBossBar(bossBar);
-                    bossBar.createBar(MiniMessage.get().parse(SimpleHomes.core().getLang().getString("teleportBar", "null")));
+                    bossBar.createBar(MiniMessage.miniMessage().deserialize(SimpleHomes.core().getLang().getString("teleportBar", "null")));
                     bossBar.showBar(player, tpDelay);
                 }
 

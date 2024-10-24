@@ -51,7 +51,7 @@ public class CommandHomes implements TabExecutor {
             // Build pagination for homes
             List<Component> lines = new ArrayList<>();
             for (Home home : homesPlayer.getHomes()) {
-                Component line = MiniMessage.get().parse("<aqua>" + home.name() + " <white>· <click:run_command:/home "
+                Component line = MiniMessage.miniMessage().deserialize("<aqua>" + home.name() + " <white>· <click:run_command:/home "
                          + home.name() + "><hover:show_text:'" + SimpleHomes.core().getLang()
                         .getString("command.homes.clickToTravel") + "'>" + "<gray>" + + home.location().getBlockX()
                         + " " + home.location().getBlockY() + " " + home.location().getBlockZ());
@@ -65,7 +65,7 @@ public class CommandHomes implements TabExecutor {
             else
                 header = SimpleHomes.core().getLang().getString("command.homes.headerYours", "null");
 
-            Paginate paginate = new Paginate(lines, MiniMessage.get().parse(header), 8, "homes ");
+            Paginate paginate = new Paginate(lines, MiniMessage.miniMessage().deserialize(header), 8, "homes ");
             Component toSend = args.length == 0 ? paginate.getPage(1) : paginate.getPage(Integer.parseInt(args[0]));
 
             // If the player specified a page that doesn't exist
@@ -107,13 +107,13 @@ public class CommandHomes implements TabExecutor {
                 Component line;
 
                 if (player.hasPermission("simplehomes.home.other"))
-                    line = MiniMessage.get().parse("<aqua>" + home.name() + " <white>· <click:run_command:/home "
+                    line = MiniMessage.miniMessage().deserialize("<aqua>" + home.name() + " <white>· <click:run_command:/home "
                             + target.getLastSeenName() + " " + home.name() + "><hover:show_text:'" +
                             SimpleHomes.core().getLang().getString("command.homes.clickToTravel") + "'>" +
                             "<gray>" + + home.location().getBlockX() + " " + home.location().getBlockY() + " "
                             + home.location().getBlockZ());
                 else
-                    line = MiniMessage.get().parse("<aqua>" + home.name() + " <white>· <gray>"
+                    line = MiniMessage.miniMessage().deserialize("<aqua>" + home.name() + " <white>· <gray>"
                             + home.location().getBlockX() + " " + home.location().getBlockY() + " "
                             + home.location().getBlockZ());
                 lines.add(line);
@@ -127,7 +127,7 @@ public class CommandHomes implements TabExecutor {
                 header = SimpleHomes.core().getLang().getString("command.homes" +
                         ".headerOthers", "null").replace("%player%", target.getLastSeenName());
 
-            Paginate paginate = new Paginate(lines, MiniMessage.get().parse(header), 8, "homes "
+            Paginate paginate = new Paginate(lines, MiniMessage.miniMessage().deserialize(header), 8, "homes "
                     + target.getLastSeenName() + " ");
 
             // Avoid exceptions with Integer#parseInt
@@ -241,13 +241,13 @@ public class CommandHomes implements TabExecutor {
          * @return The created page ready to send formatted.
          */
         public Component createPage(List<Component> lines, int pageNumber, String command) {
-            Component prev = currentPage > 1 ? MiniMessage.get().parse("<click:run_command:/" + command + " "
+            Component prev = currentPage > 1 ? MiniMessage.miniMessage().deserialize("<click:run_command:/" + command + " "
                     + (pageNumber - 1) + "><hover:show_text:'<aqua>" + PREVIOUS_PAGE + "'><gold>[<aqua>" + PREV + "<gold>] ") :
-                    MiniMessage.get().parse("<hover:show_text:'<gray>" + NO_PREVIOUS_PAGE + "'><gold>[<gray>" + PREV + "<gold>] ");
-            Component title = header.append(MiniMessage.get().parse("<aqua> - " + PAGE + " " + pageNumber + "/" + pages));
-            Component next = currentPage < pages ? MiniMessage.get().parse(" <click:run_command:/" + command + " "
+                    MiniMessage.miniMessage().deserialize("<hover:show_text:'<gray>" + NO_PREVIOUS_PAGE + "'><gold>[<gray>" + PREV + "<gold>] ");
+            Component title = header.append(MiniMessage.miniMessage().deserialize("<aqua> - " + PAGE + " " + pageNumber + "/" + pages));
+            Component next = currentPage < pages ? MiniMessage.miniMessage().deserialize(" <click:run_command:/" + command + " "
                     + (pageNumber + 1) + "><hover:show_text:'<aqua>" + NEXT_PAGE + "'><gold>[<aqua>" + NEXT + "<gold>]") :
-                    MiniMessage.get().parse(" <hover:show_text:'<gray>" + NO_NEXT_PAGE + "'><gold>[<gray>" + NEXT + "<gold>]");
+                    MiniMessage.miniMessage().deserialize(" <hover:show_text:'<gray>" + NO_NEXT_PAGE + "'><gold>[<gray>" + NEXT + "<gold>]");
             TextComponent.Builder page = Component.text().append(prev).append(title).append(next);
             for (Component line : lines)
                 page.append(Component.newline()).append(line);
